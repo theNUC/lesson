@@ -18,9 +18,9 @@ class Comments(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    price = models.FloatField() 
+    title = models.CharField(max_length=200, verbose_name="Kitobni Nomi")
+    description = models.TextField(verbose_name="Izoh")
+    price = models.FloatField(verbose_name="Narxi") 
     Comments = models.ManyToManyField(Comments)
     count = models.IntegerField(default=1)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
