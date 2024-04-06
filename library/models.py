@@ -7,35 +7,33 @@ class Author(models.Model):
     birth_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.first_name}{self.last_name}"
-    
+        return f"{self.id} {self.first_name} {self.last_name}"
+
 class Comments(models.Model):
     text = models.TextField()
-    Student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
 
-
 class Book(models.Model):
-    title = models.CharField(max_length=200, verbose_name="Kitobni Nomi")
+    title = models.CharField(max_length=200, verbose_name="Kitobning Nomi")
     description = models.TextField(verbose_name="Izoh")
-    price = models.FloatField(verbose_name="Narxi") 
-    Comments = models.ManyToManyField(Comments)
+    price = models.FloatField()
+    comments = models.ManyToManyField(Comments)
     count = models.IntegerField(default=1)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_created=True)
+    # autocomplete_fields = ['author__first_name']
 
     def __str__(self):
-        return f"{self.title}{self.price}"
-    
-    
+        return f"{self.title} {self.price}"
+
 class BookingBook(models.Model):
     student = models.ManyToManyField(Student)
     book = models.ManyToManyField(Book)
     take_date = models.DateTimeField(auto_now_add=True)
-    returned_data = models.BooleanField(default=False)
+    returned_date = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.student}{self.book}"
-    
+        return f"{self.student} {self.book}"
