@@ -18,10 +18,22 @@
 
      {% for book in books %}
         <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
+          <img src="{{book.image.url}}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{book.title}}</h5>
             <p class="card-text">{{book.description}}</p>
+              <h4>Comments:</h4>
+              <p>
+                  <ul>
+                        {% for comment in book.comments.all %}
+
+                        <li>
+                            <b>Student:</b> {{ comment.student.first_name }} <br>
+                            <b>Text:</b> {{ comment }}
+                        </li>
+                {% endfor %}
+                </ul>
+              </p>
             <a href="{% url 'book-detail' book.id %}" class="btn btn-primary">Click</a>
           </div>
         </div>

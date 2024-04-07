@@ -1,5 +1,5 @@
-from pathlib import Path
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -11,13 +11,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+
+# local server
 SECRET_KEY = os.getenv("SECRET_KEY")
+
+# demo server
+# SECRET_KEY = 'django-insecure-#(bmz(v&0=nkjid2gqff=k7m#ffx=gi&zvfi1u0otp$#5=+^ye'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = "login"
 
 # Application definition
 
@@ -28,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     # extension
     "django_extensions",
     "import_export",
@@ -71,6 +78,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+    }
+}
+
 
 DATABASES = {
     "default": {
@@ -124,3 +139,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+MEDIA_URL = 'media/'
+MEDIAFILES_DIRS = [
+    BASE_DIR / "media",
+]

@@ -1,5 +1,5 @@
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
 
-def home_page(request):
-    return HttpResponse("hi lazy developers")
+# def home_page(request):
+#     return HttpResponse("hi lazy developers")

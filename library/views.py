@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.views import View
 from .models import Book
-from django.http import HttpResponse
-class BooksListView(View):
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class BooksListView(LoginRequiredMixin, View):
     def get(self, request):
         search = request.GET.get("search")
+        print(f">>>>>>>>>>>>>>>>>>>>>>{request.GET}")
         if not search:
             books = Book.objects.all()
             context = {
-                "books": books,
-                "search": search
+                "books": books
             }
             return render(request, "library.html", context)
         else:
@@ -17,14 +18,12 @@ class BooksListView(View):
             if books:
                 context = {
                     "books": books,
-                    "search": search
+                    # "search": search
                 }
                 return render(request, "library.html", context)
+
             else:
                 return render(request, "not_found.html")
-
-
-
 
 class BookDetailView(View):
     def get(self, request, id):
